@@ -1,1 +1,8 @@
-@import "./base.css"
+@import "./base.css";
+
+.wrapper {
+  padding: 1rem;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
