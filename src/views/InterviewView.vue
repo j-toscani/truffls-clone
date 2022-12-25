@@ -3,13 +3,6 @@
 </template>
 <script setup lang="ts">
 import ApplicationTeaserList from "@/components/ApplicationTeaserList.vue";
-
-const applicants = [
-  {
-    fullName: "Jon Doe",
-    jobDescription: "Developer",
-    image: "https://picsum.photos/300/300",
-  },
-];
+import { applicants } from "@/mocks/apllicants";
 </script>
 <style scoped></style>
