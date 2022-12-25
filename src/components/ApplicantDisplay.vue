@@ -60,6 +60,7 @@ li {
 
 div {
   margin: 0 auto;
+  padding: 1rem;
   display: flex;
   overflow: auto;
   flex-direction: column;

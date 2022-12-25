@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, provide } from "vue";
 import { routes } from "./router/index";
 import TopNavigation from "./components/TopNavigation.vue";
+
+const currentId = ref(1);
+const later = ref([]);
+const interview = ref([]);
+
+provide("current", currentId);
+provide("later", later);
+provide("interview", interview);
 
 const navigation = computed(() =>
   routes.map(({ name, path }) => ({
