@@ -1,5 +1,7 @@
 <template>
-  <h2>Later</h2>
+  <ApplicationTeaserList />
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ApplicationTeaserList from "@/components/ApplicationTeaserList.vue";
+</script>
 <style scoped></style>
