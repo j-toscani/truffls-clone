@@ -1,6 +1,12 @@
 <template>
   <div class="decision-container">
-    <ApplicantDisplay v-if="applicant" :applicant="applicant" />
+    <Transition mode="out-in">
+      <ApplicantDisplay
+        v-if="applicant"
+        :key="applicant.id"
+        :applicant="applicant"
+      />
+    </Transition>
     <div class="button-container">
       <button>
         <Done class="done" />
@@ -15,26 +21,50 @@
 </template>
 <script setup lang="ts">
 /// <reference types="vite-svg-loader" />
+import type { ApiApplicant } from "@/types/ApiApplicant.interface";
 import { onMounted, ref } from "vue";
 import ApplicantDisplay from "@/components/ApplicantDisplay.vue";
 import Done from "@material-design-icons/svg/filled/done.svg?component";
 import Close from "@material-design-icons/svg/outlined/close.svg?component";
-
 import fetchApplicant from "@/lib/fetchApplicant";
-const applicant = ref(null);
+
+const currentId = ref(1);
+const applicant = ref<ApiApplicant | null>(null);
 
 onMounted(async () => {
   try {
-    applicant.value = await fetchApplicant(1);
+    applicant.value = await fetchApplicant(currentId.value);
   } catch (error) {
     console.log(error);
   }
 });
 </script>
+
 <style scoped>
+@keyframes pulse {
+  0% {
+    background-color: #ccc;
+  }
+  100% {
+    background-color: #999;
+  }
+}
+
+.dummy-content {
+  width: 340px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.animated {
+  height: 100%;
+  animation: pulse 2s linear 0s infinite forwards alternate;
+}
+
 .decision-container {
   display: grid;
-  grid-template-rows: 1fr 6rem;
+  height: 100%;
+  grid-template-rows: 1fr min(6rem, 25%);
 }
 
 .button-container {
