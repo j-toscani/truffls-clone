@@ -1,1 +1,24 @@
-@import "./base.css"
+@import "./base.css";
+
+#app {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.wrapper {
+  padding: 1rem;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}

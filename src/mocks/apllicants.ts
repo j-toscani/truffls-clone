@@ -1,4 +1,4 @@
-import type { ApplicantTeaser } from "@/types/ApplicantTeaser";
+import type { ApplicantTeaser } from "@/types/ApplicantTeaser.interface";
 
 export const applicants: ApplicantTeaser[] = [
   {

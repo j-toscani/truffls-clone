@@ -15,8 +15,9 @@ const navigation = computed(() =>
   <header>
     <TopNavigation :navigation="navigation" />
   </header>
-
-  <RouterView />
+  <main class="wrapper">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped></style>

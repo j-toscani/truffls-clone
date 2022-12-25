@@ -6,9 +6,9 @@
   </nav>
 </template>
 <script setup lang="ts">
-import type navigationElement from "@/types/NavigationElement.interface";
+import type { NavigationElement } from "@/types/NavigationElement.interface";
 
-defineProps<{ navigation: navigationElement[] }>();
+defineProps<{ navigation: NavigationElement[] }>();
 </script>
 <style scoped>
 a {

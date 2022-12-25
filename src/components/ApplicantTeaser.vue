@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ApplicantTeaser } from "@/types/ApplicantTeaser";
+import type { ApplicantTeaser } from "@/types/ApplicantTeaser.interface";
 import { computed } from "vue";
 
 const props = defineProps<{
