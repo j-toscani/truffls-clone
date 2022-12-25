@@ -38,4 +38,10 @@ const navigation = computed(() =>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+header {
+  position: sticky;
+  background-color: white;
+  top: 0;
+}
+</style>
