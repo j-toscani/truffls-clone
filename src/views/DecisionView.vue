@@ -8,12 +8,12 @@
       />
     </Transition>
     <div class="button-container">
-      <BaseButton @click="addToInterview" >
-        <Done class="done"  />
+      <BaseButton @click="addToInterview">
+        <Done class="done" />
         <small> Job Interview </small>
       </BaseButton>
-      <BaseButton @click="addToLater" >
-        <Close class="close"  />
+      <BaseButton @click="addToLater">
+        <Close class="close" />
         <small> Maybe Later </small>
       </BaseButton>
     </div>
@@ -22,45 +22,64 @@
 <script setup lang="ts">
 /// <reference types="vite-svg-loader" />
 import type { ApiApplicant } from "@/types/ApiApplicant.interface";
-import { onMounted, ref, inject, watch } from "vue";
+import { ref, inject, watch } from "vue";
 import type { Ref } from "vue";
 import ApplicantDisplay from "@/components/ApplicantDisplay.vue";
 import Done from "@material-design-icons/svg/filled/done.svg?component";
 import Close from "@material-design-icons/svg/outlined/close.svg?component";
 import fetchApplicant from "@/lib/fetchApplicant";
 import BaseButton from "@/components/BaseButton.vue";
+import useLocalStorage from "@/composables/useLocalStorage";
+import type { ApplicantTeaser } from "@/types/ApplicantTeaser.interface";
+
+const { save } = useLocalStorage();
 
 const currentId = inject<Ref<number>>("current");
-const later = inject<Ref<ApiApplicant[]>>("later");
-const interview = inject<Ref<ApiApplicant[]>>("interview");
+const later = inject<Ref<ApplicantTeaser[]>>("later");
+const interview = inject<Ref<ApplicantTeaser[]>>("interview");
 const applicant = ref<ApiApplicant | null>(null);
 
-watch(currentId!, async (value) => {
-  try {
-    applicant.value = await fetchApplicant(value);
-  } catch (error) {
-    console.log(error);
-  }
-});
+watch(
+  currentId!,
+  async (value) => {
+    if (!value) return;
+    try {
+      applicant.value = await fetchApplicant(value);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  { immediate: true }
+);
+
+function addToList(list: Ref<ApplicantTeaser[]>) {
+  if (!applicant.value || !currentId) return;
+  list.value.push(createApplicantTeaser(applicant.value));
+  currentId.value++;
+  saveState();
+}
+
+function createApplicantTeaser(applicant: ApiApplicant) {
+  return {
+    fullName: `${applicant.firstName} ${applicant.lastName}`,
+    jobDescription: applicant.company.title,
+    image: applicant.image,
+  };
+}
 
 function addToLater() {
-  if (!applicant.value || !currentId) return;
-  later!.value.push(applicant.value);
-  currentId.value++;
-}
-function addToInterview() {
-  if (!applicant.value || !currentId) return;
-  interview!.value.push(applicant.value);
-  currentId.value++;
+  addToList(later!);
 }
 
-onMounted(async () => {
-  try {
-    applicant.value = await fetchApplicant(currentId?.value ?? 1);
-  } catch (error) {
-    console.log(error);
-  }
-});
+function addToInterview() {
+  addToList(interview!);
+}
+
+function saveState() {
+  save<number>(currentId!.value, "currentId");
+  save<ApplicantTeaser[]>(later?.value ?? [], "later");
+  save<ApplicantTeaser[]>(interview?.value ?? [], "interview");
+}
 </script>
 
 <style scoped>

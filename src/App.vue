@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { computed, ref, provide } from "vue";
+import { computed, ref, provide, onMounted } from "vue";
 import { routes } from "./router/index";
 import TopNavigation from "./components/TopNavigation.vue";
+import useLocalStorage from "./composables/useLocalStorage";
+import type { ApplicantTeaser } from "./types/ApplicantTeaser.interface";
 
-const currentId = ref(1);
+const { restore } = useLocalStorage();
+
+const currentId = ref(null);
 const later = ref([]);
 const interview = ref([]);
 
 provide("current", currentId);
 provide("later", later);
 provide("interview", interview);
+
+onMounted(() => {
+  currentId.value = restore("currentId", 1);
+  later.value = restore<ApplicantTeaser[]>("later", []);
+  interview.value = restore<ApplicantTeaser[]>("interview", []);
+});
 
 const navigation = computed(() =>
   routes.map(({ name, path }) => ({
@@ -28,4 +38,10 @@ const navigation = computed(() =>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+header {
+  position: sticky;
+  background-color: white;
+  top: 0;
+}
+</style>
