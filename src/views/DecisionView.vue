@@ -9,11 +9,11 @@
     </Transition>
     <div class="button-container">
       <button>
-        <Done class="done" />
+        <Done class="done" @click="addToInterview" />
         <small> Job Interview </small>
       </button>
       <button>
-        <Close class="close" />
+        <Close class="close" @click="addToLater" />
         <small> Maybe Later </small>
       </button>
     </div>
@@ -22,18 +22,40 @@
 <script setup lang="ts">
 /// <reference types="vite-svg-loader" />
 import type { ApiApplicant } from "@/types/ApiApplicant.interface";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject, watch } from "vue";
+import type { Ref } from "vue";
 import ApplicantDisplay from "@/components/ApplicantDisplay.vue";
 import Done from "@material-design-icons/svg/filled/done.svg?component";
 import Close from "@material-design-icons/svg/outlined/close.svg?component";
 import fetchApplicant from "@/lib/fetchApplicant";
 
-const currentId = ref(1);
+const currentId = inject<Ref<number>>("current");
+const later = inject<Ref<ApiApplicant[]>>("later");
+const interview = inject<Ref<ApiApplicant[]>>("interview");
 const applicant = ref<ApiApplicant | null>(null);
+
+watch(currentId!, async (value) => {
+  try {
+    applicant.value = await fetchApplicant(value);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+function addToLater() {
+  if (!applicant.value || !currentId) return;
+  later!.value.push(applicant.value);
+  currentId.value++;
+}
+function addToInterview() {
+  if (!applicant.value || !currentId) return;
+  interview!.value.push(applicant.value);
+  currentId.value++;
+}
 
 onMounted(async () => {
   try {
-    applicant.value = await fetchApplicant(currentId.value);
+    applicant.value = await fetchApplicant(currentId?.value ?? 1);
   } catch (error) {
     console.log(error);
   }
