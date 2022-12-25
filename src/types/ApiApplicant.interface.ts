@@ -1,8 +1,8 @@
-import type ApiApplicantBank from "./ApiApplicantBank.interface";
-import type ApiApplicantAddress from "./ApiApplicantAddress.interface";
-import type ApiApplicantCompany from "./ApiApplicantCompany.interafce";
+import type { ApiApplicantBank } from "./ApiApplicantBank.interface";
+import type { ApiApplicantAddress } from "./ApiApplicantAddress.interface";
+import type { ApiApplicantCompany } from "./ApiApplicantCompany.interafce";
 
-export default interface ApiApplicant {
+export interface ApiApplicant {
   id: number;
   firstName: string;
   lastName: string;

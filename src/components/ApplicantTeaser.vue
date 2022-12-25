@@ -9,10 +9,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ApplicantTeaser } from "@/types/ApplicantTeaser";
 import { computed } from "vue";
 
 const props = defineProps<{
-  applicant: { fullName: string; image: string; jobDescription: string };
+  applicant: ApplicantTeaser;
 }>();
 
 const altText = computed(

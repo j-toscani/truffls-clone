@@ -1,6 +1,6 @@
-import type ApiApplicantAddress from "./ApiApplicantAddress.interface";
+import type { ApiApplicantAddress } from "./ApiApplicantAddress.interface";
 
-export default interface ApiApplicantCompany {
+export interface ApiApplicantCompany {
   address: ApiApplicantAddress;
   department: string;
   name: string;

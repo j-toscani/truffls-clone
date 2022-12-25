@@ -1,4 +1,4 @@
-export default interface ApiApplicantBank {
+export interface ApiApplicantBank {
   cardExpire: string;
   cardNumber: string;
   cardType: string;

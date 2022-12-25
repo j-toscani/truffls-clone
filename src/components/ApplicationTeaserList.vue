@@ -9,14 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import ApplicantTeaser from "@/components/ApplicantTeaser.vue";
-const applicants = [
-  {
-    fullName: "Jon Doe",
-    jobDescription: "Developer",
-    image: "https://picsum.photos/300/300",
-  },
-];
+import type { ApplicantTeaser as ApplicantTeaserType } from "@/types/ApplicantTeaser.interface";
+import ApplicantTeaser from "./ApplicantTeaser.vue";
+
+defineProps<{ applicants: ApplicantTeaserType[] }>();
 </script>
 
 <style scoped>

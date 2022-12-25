@@ -1,4 +1,4 @@
-export default interface ApiApplicantAddress {
+export interface ApiApplicantAddress {
   address: string;
   city: string;
   coordinates: {
