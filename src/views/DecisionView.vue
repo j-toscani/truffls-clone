@@ -72,12 +72,6 @@ onMounted(async () => {
   }
 }
 
-.dummy-content {
-  width: 340px;
-  margin: 0 auto;
-  height: 100%;
-}
-
 .animated {
   height: 100%;
   animation: pulse 2s linear 0s infinite forwards alternate;
@@ -112,9 +106,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0.5rem;
   gap: 0.5rem;
-  height: 4rem;
-  width: 4rem;
   background-color: transparent;
   border: none;
 }
