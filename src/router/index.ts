@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Applications from "../views/ApplicationsView.vue";
+import Applications from "../views/DecisionView.vue";
 
 export const routes = [
   {
