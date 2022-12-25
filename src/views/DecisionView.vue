@@ -8,14 +8,14 @@
       />
     </Transition>
     <div class="button-container">
-      <button>
-        <Done class="done" @click="addToInterview" />
+      <BaseButton @click="addToInterview" >
+        <Done class="done"  />
         <small> Job Interview </small>
-      </button>
-      <button>
-        <Close class="close" @click="addToLater" />
+      </BaseButton>
+      <BaseButton @click="addToLater" >
+        <Close class="close"  />
         <small> Maybe Later </small>
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -28,6 +28,7 @@ import ApplicantDisplay from "@/components/ApplicantDisplay.vue";
 import Done from "@material-design-icons/svg/filled/done.svg?component";
 import Close from "@material-design-icons/svg/outlined/close.svg?component";
 import fetchApplicant from "@/lib/fetchApplicant";
+import BaseButton from "@/components/BaseButton.vue";
 
 const currentId = inject<Ref<number>>("current");
 const later = inject<Ref<ApiApplicant[]>>("later");
@@ -100,15 +101,5 @@ onMounted(async () => {
 
 small {
   white-space: nowrap;
-}
-
-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  gap: 0.5rem;
-  background-color: transparent;
-  border: none;
 }
 </style>
