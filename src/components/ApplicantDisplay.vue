@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="props.applicant.image" width="320" height="240" />
+    <img :src="props.applicant.image" height="240" width="180" />
     <h2>{{ fullName }}</h2>
     <ul>
       <li>
@@ -47,7 +47,7 @@ h2 {
 }
 
 img {
-  aspect-ratio: 4/3;
+  margin: 0 auto;
   object-fit: contain;
 }
 
@@ -61,7 +61,7 @@ li {
 div {
   margin: 0 auto;
   padding: 1rem;
-  display: flex;
+  display: grid;
   overflow: auto;
   flex-direction: column;
   align-items: center;
