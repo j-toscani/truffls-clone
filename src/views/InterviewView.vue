@@ -3,10 +3,10 @@
 </template>
 <script setup lang="ts">
 import ApplicationTeaserList from "@/components/ApplicationTeaserList.vue";
-import type { ApiApplicant } from "@/types/ApiApplicant.interface";
 import { inject } from "vue";
 import type { Ref } from "vue";
+import type { ApplicantTeaser } from "@/types/ApplicantTeaser.interface";
 
-const interview = inject<Ref<ApiApplicant[]>>("interview");
+const interview = inject<Ref<ApplicantTeaser[]>>("interview");
 </script>
 <style scoped></style>

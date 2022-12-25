@@ -1,7 +1,7 @@
 <template>
   <ul>
     <ApplicantTeaser
-      v-for="applicant in applicantTeasers"
+      v-for="applicant in applicants"
       :key="applicant.fullName"
       :applicant="applicant"
     ></ApplicantTeaser>
@@ -9,18 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import type { ApiApplicant } from "@/types/ApiApplicant.interface";
 import ApplicantTeaser from "./ApplicantTeaser.vue";
+import type { ApplicantTeaser as ApplicantTeaserType } from "@/types/ApplicantTeaser.interface";
 
-const props = defineProps<{ applicants: ApiApplicant[] }>();
-const applicantTeasers = computed(() =>
-  props.applicants.map((applicant) => ({
-    fullName: `${applicant.firstName} ${applicant.lastName}`,
-    jobDescription: applicant.company.title,
-    image: applicant.image,
-  }))
-);
+defineProps<{ applicants: ApplicantTeaserType[] }>();
 </script>
 
 <style scoped>
