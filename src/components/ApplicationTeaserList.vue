@@ -4,6 +4,7 @@
       v-for="applicant in applicants"
       :key="applicant.fullName"
       :applicant="applicant"
+      class="teaser"
     ></ApplicantTeaser>
   </ul>
 </template>
@@ -17,7 +18,13 @@ defineProps<{ applicants: ApplicantTeaserType[] }>();
 
 <style scoped>
 ul {
-  padding: 2rem;
+  padding: 0rem 2rem 2rem;
   margin: 0;
+}
+
+.teaser:not(:first-of-type) {
+  border-top: 1px solid black;
+  padding-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 </style>
