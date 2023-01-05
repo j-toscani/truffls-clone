@@ -5,7 +5,8 @@
         v-if="applicant"
         :key="applicant.id"
         :applicant="applicant"
-        @pointerdown="handlePointerDown"
+        @touchstart="handlePointerDown"
+        @mousedown="handlePointerDown"
         :class="willSwipe ? 'swiping' : ''"
       />
     </Transition>
@@ -42,7 +43,7 @@ const interview = inject<Ref<ApplicantTeaser[]>>("interview");
 const applicant = ref<ApiApplicant | null>(null);
 
 const { save } = useLocalStorage();
-const { handlePointerDown, willSwipe } = useSwipe(addToLater, addToInterview);
+const { handlePointerDown, willSwipe } = useSwipe(addToInterview, addToLater);
 
 watch(
   currentId!,
