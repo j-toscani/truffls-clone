@@ -5,6 +5,9 @@
         v-if="applicant"
         :key="applicant.id"
         :applicant="applicant"
+        @touchstart="handlePointerDown"
+        @mousedown="handlePointerDown"
+        :class="willSwipe ? 'swiping' : ''"
       />
     </Transition>
     <div class="button-container">
@@ -31,13 +34,16 @@ import fetchApplicant from "@/lib/fetchApplicant";
 import BaseButton from "@/components/BaseButton.vue";
 import useLocalStorage from "@/composables/useLocalStorage";
 import type { ApplicantTeaser } from "@/types/ApplicantTeaser.interface";
-
-const { save } = useLocalStorage();
+import createApplicantTeaser from "@/lib/createApplicantTeaser";
+import useSwipe from "@/composables/useSwipe";
 
 const currentId = inject<Ref<number>>("current");
 const later = inject<Ref<ApplicantTeaser[]>>("later");
 const interview = inject<Ref<ApplicantTeaser[]>>("interview");
 const applicant = ref<ApiApplicant | null>(null);
+
+const { save } = useLocalStorage();
+const { handlePointerDown, willSwipe } = useSwipe(addToInterview, addToLater);
 
 watch(
   currentId!,
@@ -57,14 +63,6 @@ function addToList(list: Ref<ApplicantTeaser[]>) {
   list.value.push(createApplicantTeaser(applicant.value));
   currentId.value++;
   saveState();
-}
-
-function createApplicantTeaser(applicant: ApiApplicant) {
-  return {
-    fullName: `${applicant.firstName} ${applicant.lastName}`,
-    jobDescription: applicant.company.title,
-    image: applicant.image,
-  };
 }
 
 function addToLater() {
@@ -113,9 +111,14 @@ function saveState() {
   stroke-width: 4px;
   stroke: green;
 }
+
 .close {
   stroke-width: 4px;
   stroke: red;
+}
+
+.swiping {
+  cursor: grabbing;
 }
 
 small {

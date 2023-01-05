@@ -1,6 +1,11 @@
 <template>
   <div>
-    <img :src="props.applicant.image" height="240" width="180" />
+    <img
+      :src="props.applicant.image"
+      height="240"
+      width="180"
+      draggable="false"
+    />
     <h2>{{ fullName }}</h2>
     <ul>
       <li>
@@ -60,6 +65,7 @@ li {
 
 div {
   margin: 0 auto;
+  cursor: pointer;
   padding: 1rem;
   display: grid;
   overflow: auto;
